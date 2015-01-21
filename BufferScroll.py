@@ -347,6 +347,10 @@ class BufferScroll(sublime_plugin.EventListener):
 
                 if id in db:
 
+                    # if navigation changed selection don't restore scroll
+                    if db[id]['s'] != [[item.a, item.b] for item in view.sel()]:
+                        return
+
                     # scroll
                     if Pref.get('i_use_cloned_views', view) and index in db[id]['l']:
                         position = tuple(db[id]['l'][index])
